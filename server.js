@@ -17,10 +17,15 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-});
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/rjimenez-budget-tracker",
+  {
+    useNewUrlParser: true,
+    // useFindAndModify: false,
+    useUnifiedTopology: true,
+  }
+);
 
 // routes
 app.use(require("./routes/api.js"));
